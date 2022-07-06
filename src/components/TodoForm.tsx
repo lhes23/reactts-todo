@@ -51,7 +51,7 @@ const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
             <input
               type="submit"
               value="Submit"
-              className="border-2 p-2 w-1/2 m-5"
+              className="border-2 p-2 w-1/2 m-5 bg-gradient-to-tr from-purple-500 to-rose-500 rounded-lg shadow-lg text-white hover:bg-gradient-to-tl hover:from-orange-400 hover:to-lime-500"
             />
           </div>
         </form>
