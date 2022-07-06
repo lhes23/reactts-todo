@@ -5,7 +5,7 @@ interface Props {
   todos: Todos[];
 }
 
-const TodoLists = ({ todos }: Props) => {
+const TodoLists: React.FC<Props> = ({ todos }) => {
   return (
     <div>
       <h1>TodoLists</h1>

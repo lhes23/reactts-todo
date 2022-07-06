@@ -6,7 +6,7 @@ interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Todos[]>>;
 }
 
-const TodoForm = ({ todos, setTodos }: Props) => {
+const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
   const [todoName, setTodoName] = useState<string>("");
   const [todoDescription, setTodoDescription] = useState<string>("");
 
