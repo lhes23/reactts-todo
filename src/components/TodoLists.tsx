@@ -1,20 +1,24 @@
 import React from "react";
-import { Todos } from "../interfaces";
+import { Todo } from "../interfaces";
+import TodoCard from "./TodoCard";
 
 interface Props {
-  todos: Todos[];
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoLists: React.FC<Props> = ({ todos }) => {
+const TodoLists: React.FC<Props> = ({ todos, setTodos }) => {
   return (
-    <div>
-      <h1>TodoLists</h1>
-      {todos.map((todo: Todos, key: number) => {
+    <div className="w-1/2 text-center">
+      {todos.length > 0 ? (
+        <h1 className="text-3xl font-bold p-3 m-4">TodoLists</h1>
+      ) : (
+        ""
+      )}
+      {todos.map((todo: Todo, key: number) => {
         return (
           <div key={key}>
-            <h2>
-              {todo.todoName} - {todo.todoDescription}
-            </h2>
+            <TodoCard todo={todo} setTodos={setTodos} todos={todos} />
           </div>
         );
       })}
