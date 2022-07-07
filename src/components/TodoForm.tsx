@@ -28,7 +28,7 @@ const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
 
   return (
     <>
-      <section className="container justify-center text-center border-2 p-10 w-1/2 align-middle bg-white shadow-2xl rounded-2xl">
+      <section className="container justify-center text-center border-2 p-10 w-full md:w-1/2 align-middle bg-white shadow-2xl rounded-2xl">
         <form className="" onSubmit={todoFormHandler}>
           {error && (
             <div className="p-3 m-1 mb-2 border-2 bg-red-500">

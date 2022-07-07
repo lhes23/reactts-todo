@@ -6,7 +6,7 @@ import { Todo } from "./interfaces";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  console.log(todos);
+
   return (
     <div className="h-full">
       <div className="flex justify-center text-center">

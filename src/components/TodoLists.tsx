@@ -9,7 +9,7 @@ interface Props {
 
 const TodoLists: React.FC<Props> = ({ todos, setTodos }) => {
   return (
-    <div className="w-1/2 text-center">
+    <div className="w-full md:w-1/2 text-center">
       {todos.length > 0 ? (
         <h1 className="text-3xl font-bold p-3 m-4">TodoLists</h1>
       ) : (

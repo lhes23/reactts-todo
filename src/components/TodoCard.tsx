@@ -16,20 +16,23 @@ const TodoCard = ({ todo, setTodos, todos }: Props) => {
   };
   return (
     <>
-      <div className="p-5 m-2 border-2 rounded-md place-content-center bg-gradient-to-tr from-slate-400 via-gray-200 to-slate-700 shadow-2xl">
+      <div className="p-5 m-4 md:m-2 border-2 rounded-md place-content-center bg-gradient-to-tr from-slate-400 via-gray-200 to-slate-700 shadow-2xl">
         <div className="grid grid-cols-2">
-          <h1>Todo Name: {todo.todoName}</h1>
-          <h2>Todo Description : {todo.todoDescription}</h2>
-          {/* <button
-            onClick={() => doneBtnHandler(todo.id)}
-            className={myStyles.button}
-          >
-            Done
-          </button> */}
-        </div>
-        <div className="flex w-full place-content-end">
-          <FaEdit size={28} />
-          <MdDeleteForever size={30} />
+          <div>
+            <h1>Todo Name: {todo.todoName}</h1>
+            <h2>Todo Description : {todo.todoDescription}</h2>
+          </div>
+          <div className="flex w-full place-content-end">
+            <FaEdit
+              size={27}
+              className="hover:text-white hover:cursor-pointer"
+            />
+            <MdDeleteForever
+              size={30}
+              onClick={() => doneBtnHandler(todo.id)}
+              className="hover:text-white hover:cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </>
