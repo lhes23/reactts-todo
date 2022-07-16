@@ -15,10 +15,10 @@ function App() {
         </h1>
       </div>
       <div className="flex place-content-center">
-        <TodoForm todos={todos} setTodos={setTodos} />
+        <TodoForm />
       </div>
       <div className="flex place-content-center">
-        <TodoLists todos={todos} setTodos={setTodos} />
+        <TodoLists />
       </div>
     </div>
   );

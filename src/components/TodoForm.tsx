@@ -1,13 +1,9 @@
-import React, { FormEvent, useState } from "react";
-import { Todo } from "../interfaces";
+import React, { FormEvent, useContext, useState } from "react";
+import { TodoContext } from "../context/TodoContext";
 import myStyles from "../utils/styles";
 
-interface Props {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
-
-const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
+const TodoForm = () => {
+  const { dispatch } = useContext(TodoContext);
   const [todoName, setTodoName] = useState<string>("");
   const [todoDescription, setTodoDescription] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
@@ -16,7 +12,10 @@ const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
     event.preventDefault();
 
     if (todoName !== "" && todoDescription !== "") {
-      setTodos([...todos, { id: Math.random(), todoName, todoDescription }]);
+      dispatch({
+        type: "ADD_TODO",
+        payload: { id: Math.random(), todoName, todoDescription },
+      });
       setError(false);
     } else {
       setError(true);
@@ -28,7 +27,7 @@ const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
 
   return (
     <>
-      <section className="container justify-center text-center border-2 p-10 w-full md:w-1/2 align-middle bg-white shadow-2xl rounded-2xl">
+      <section className="container justify-center text-center border-2 py-10 px-5 w-full md:w-1/2 m-4 align-middle bg-white shadow-2xl rounded-2xl">
         <form className="" onSubmit={todoFormHandler}>
           {error && (
             <div className="p-3 m-1 mb-2 border-2 bg-red-500">
@@ -47,6 +46,7 @@ const TodoForm: React.FC<Props> = ({ todos, setTodos }) => {
                 setTodoName(e.target.value);
               }}
               onFocus={() => setError(false)}
+              autoFocus
             />
           </div>
           <div className="grid grid-cols-2">

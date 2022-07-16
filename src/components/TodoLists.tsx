@@ -1,24 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces";
 import TodoCard from "./TodoCard";
 
-interface Props {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
-
-const TodoLists: React.FC<Props> = ({ todos, setTodos }) => {
+const TodoLists = () => {
+  const { state } = useContext(TodoContext);
   return (
     <div className="w-full md:w-1/2 text-center">
-      {todos.length > 0 ? (
-        <h1 className="text-3xl font-bold p-3 m-4">TodoLists</h1>
+      {state?.todos.length > 0 ? (
+        <>
+          <h1 className="text-3xl font-bold p-3 m-4">TodoLists</h1>
+        </>
       ) : (
         ""
       )}
-      {todos.map((todo: Todo, key: number) => {
+      {state?.todos.map((todo: Todo, key: number) => {
         return (
           <div key={key}>
-            <TodoCard todo={todo} setTodos={setTodos} todos={todos} />
+            <TodoCard todo={todo} />
           </div>
         );
       })}
