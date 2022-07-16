@@ -1,10 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces";
 import TodoCard from "./TodoCard";
 
 const TodoLists = () => {
   const { state } = useContext(TodoContext);
+  const [todos, setTodos] = useState<Todo[]>(state.todos);
+  useEffect(() => {
+    setTodos(state.todos);
+  }, []);
+
   return (
     <div className="w-full md:w-1/2 text-center">
       {state?.todos.length > 0 ? (
@@ -14,7 +19,7 @@ const TodoLists = () => {
       ) : (
         ""
       )}
-      {state?.todos.map((todo: Todo, key: number) => {
+      {todos.map((todo: Todo, key: number) => {
         return (
           <div key={key}>
             <TodoCard todo={todo} />

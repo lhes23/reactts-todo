@@ -5,15 +5,10 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TodoContext } from "../context/TodoContext";
 
-type Props = {
-  todo: Todo;
-};
-
-const TodoCard = ({ todo }: Props) => {
+const TodoCard = ({ todo }: { todo: Todo }) => {
   const { state, dispatch } = useContext(TodoContext);
 
   const [editedTodo, setEditedTodo] = useState<string>(todo.todoName);
-  const [editedId, setEditedId] = useState<number>(0);
   const [editedDescription, setEditedDescription] = useState<string>(
     todo.todoDescription
   );
@@ -24,60 +19,61 @@ const TodoCard = ({ todo }: Props) => {
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
 
-  const editSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    // setEditedId(todo.id);
-    console.log(editedId);
-    // const updatedTodo = todos.filter((todo) => {
-    //   if (todo.id === tid)
-    //     return {
-    //       ...todo,
-    //       todoName: editedTodo,
-    //       todoDescription: editedDescription,
-    //     };
-    // });
-
-    // console.log(updatedTodo);
+  const editTodoHandler = () => {
+    dispatch({
+      type: "EDIT_TODO",
+      payload: {
+        id: todo.id,
+        todoName: editedTodo,
+        todoDescription: editedDescription,
+      },
+    });
+    dispatch({ type: "SET_TODOS", payload: state.todos });
   };
-
   return (
     <>
       <div className="p-5 m-4 md:m-2 border-2 rounded-md bg-gradient-to-tr from-slate-400 via-gray-200 to-slate-700 shadow-2xl">
         <div className="grid grid-cols-2 text-left">
           <div>
-            {onEdit ? (
-              <>
-                <form onSubmit={editSubmitHandler}>
-                  <div className="grid grid-cols-1">
-                    <div className="">
-                      <input
-                        type="text"
-                        value={editedTodo}
-                        className="p-1 m-1 w-full"
-                        onChange={(e) => setEditedTodo(e.target.value)}
-                      />
-                      <input
-                        type="text"
-                        value={editedDescription}
-                        className="p-1 m-1 w-full"
-                        onChange={(e) => setEditedDescription(e.target.value)}
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 text-center">
-                      <input className={myStyles.button} type="submit">
-                        Submit
-                      </input>
-                      <button
-                        className={myStyles.button}
-                        onClick={() => setOnEdit(false)}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </>
-            ) : (
+            {onEdit && (
+              <div className="grid grid-cols-1">
+                <div className="">
+                  <input
+                    type="text"
+                    value={editedTodo}
+                    className="p-1 m-1 w-full"
+                    onChange={(e) => setEditedTodo(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={editedDescription}
+                    className="p-1 m-1 w-full"
+                    onChange={(e) => setEditedDescription(e.target.value)}
+                  />
+                </div>
+                <div className="grid grid-cols-2 text-center">
+                  <button
+                    className={myStyles.button}
+                    type="button"
+                    onClick={editTodoHandler}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className={myStyles.button}
+                    onClick={() => {
+                      setOnEdit(false);
+                      setEditedTodo(todo.todoName);
+                      setEditedDescription(todo.todoDescription);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!onEdit && (
               <>
                 <h1 className="text-lg p-1 my-1">{todo.todoName}</h1>
                 <h2 className="text-lg p-1 my-1">{todo.todoDescription}</h2>

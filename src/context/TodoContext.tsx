@@ -11,8 +11,9 @@ const initialState: IInitialState = {
 
 type TodoState = typeof initialState;
 type TodoAction =
-  | { type: "SET_TODOS" }
+  | { type: "SET_TODOS"; payload: Todo[] }
   | { type: "ADD_TODO"; payload: Todo }
+  | { type: "EDIT_TODO"; payload: Todo }
   | { type: "DELETE_TODO"; payload: number };
 
 export const TodoContext = createContext<{
@@ -22,9 +23,28 @@ export const TodoContext = createContext<{
 
 const reducer = (state: TodoState, action: TodoAction) => {
   switch (action.type) {
+    case "SET_TODOS":
+      return {
+        todos: action.payload,
+      };
     case "ADD_TODO":
       return {
         todos: [action.payload, ...state.todos],
+      };
+    case "EDIT_TODO":
+      return {
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            // todo.todoName = action.payload.todoName;
+            // todo.todoDescription = action.payload.todoDescription;
+            return {
+              ...todo,
+              todoName: action.payload.todoName,
+              todoDescription: action.payload.todoDescription,
+            };
+          }
+          return todo;
+        }),
       };
     case "DELETE_TODO":
       return {
